@@ -19,7 +19,7 @@ class PriceListController extends Controller
      */
     public function create()
     {
-        //
+        return view('price_list.create_update');
     }
 
     /**
@@ -43,7 +43,7 @@ class PriceListController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('price_list.create_update');
     }
 
     /**

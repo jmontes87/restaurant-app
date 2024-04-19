@@ -19,7 +19,7 @@ class FoodController extends Controller
      */
     public function create()
     {
-        //
+        return view('food.create_update');
     }
 
     /**
@@ -43,7 +43,7 @@ class FoodController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('food.create_update');
     }
 
     /**

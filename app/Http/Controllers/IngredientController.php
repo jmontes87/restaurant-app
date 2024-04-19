@@ -19,7 +19,7 @@ class IngredientController extends Controller
      */
     public function create()
     {
-        //
+        return view('ingredient.create_update');
     }
 
     /**
@@ -43,7 +43,7 @@ class IngredientController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('ingredient.create_update');
     }
 
     /**
