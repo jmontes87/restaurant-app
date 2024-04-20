@@ -21,7 +21,24 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-
+        <table class="table table-head-fixed text-nowrap">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach ($ingredients as $ingredient)
+              <tr>
+                <td>{{ $ingredient->id }}</td>
+                <td>{{ $ingredient->name }}</td>
+                <td class="text-right"><a href="{{ route('ingredient.edit', $ingredient) }}" type="button" class="btn btn-primary">Edit</a></td>
+              </tr>                      
+            @endforeach
+          </tbody>
+        </table>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

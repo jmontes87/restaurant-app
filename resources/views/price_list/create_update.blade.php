@@ -21,19 +21,25 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <form>
+        @if(isset($price_list))
+            <form action="{{ route('price_list.update', $price_list) }}" method="POST">
+              @method('PUT')
+          @else
+            <form action="{{ route('price_list.store') }}" method="POST">
+          @endif
+          @csrf
           <div class="card-body">
               <div class="form-group">
                   <label for="name">Name</label>
-                  <input type="text" class="form-control" id="name" placeholder="Enter name">
+                  <input type="text" class="form-control" name="name" id="name" value="{{ isset($price_list) ? $price_list->name : '' }}" placeholder="Enter name">
               </div>
               <div class="form-group">
                   <label for="description">Description</label>
-                  <input type="text" class="form-control" id="description" placeholder="Enter description">
+                  <input type="text" class="form-control" name="description" id="description" value="{{ isset($price_list) ? $price_list->description : '' }}" placeholder="Enter description">
               </div>
               <div class="form-group">
                   <label for="percentage_margin">Percentage margin</label>
-                  <input type="text" class="form-control" id="percentage_margin" placeholder="Enter percentage margin">
+                  <input type="text" class="form-control" name="percentage_margin" id="percentage_margin" value="{{ isset($price_list) ? $price_list->percentage_margin : '' }}" placeholder="Enter percentage margin">
               </div>
           </div>
           <!-- /.card-body -->

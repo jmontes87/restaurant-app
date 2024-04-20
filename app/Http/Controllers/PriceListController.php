@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\PriceList;
+use Redirect;
+use Session;
 
 class PriceListController extends Controller
 {
@@ -11,7 +14,8 @@ class PriceListController extends Controller
      */
     public function index()
     {
-        return view('price_list.index');
+        $price_lists = PriceList::all();
+        return view('price_list.index', compact('price_lists'));
     }
 
     /**
@@ -27,7 +31,9 @@ class PriceListController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        PriceList::create($request->all());
+        Session::flash('message' , 'Price list create success!');
+        return Redirect::to('/price_list');
     }
 
     /**
@@ -43,7 +49,8 @@ class PriceListController extends Controller
      */
     public function edit(string $id)
     {
-        return view('price_list.create_update');
+        $price_list = PriceList::find($id);
+        return view('price_list.create_update', compact('price_list'));
     }
 
     /**
@@ -51,7 +58,12 @@ class PriceListController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+    	$price_list = PriceList::find($id);
+    	$price_list->fill($request->all());
+    	$price_list->save();
+
+    	Session::flash('message' , 'Price list update success!');
+    	return Redirect::to('/price_list');
     }
 
     /**

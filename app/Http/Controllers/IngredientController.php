@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ingredient;
+use Redirect;
+use Session;
 
 class IngredientController extends Controller
 {

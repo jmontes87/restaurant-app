@@ -18,7 +18,13 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <form>
+          @if(isset($ingredient))
+            <form action="{{ route('ingredient.update', $ingredient) }}" method="POST">
+              @method('PUT')
+          @else
+            <form action="{{ route('ingredient.store') }}" method="POST">
+          @endif
+          @csrf
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">Name</label>

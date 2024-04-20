@@ -21,7 +21,36 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
 
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" >
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($price_lists as $price_list)
+                      <tr>
+                        <td>{{ $price_list->id }}</td>
+                        <td>{{ $price_list->name }}</td>
+                        <td class="text-right"><a href="{{ route('price_list.edit', $price_list) }}" type="button" class="btn btn-primary">Edit</a></td>
+                      </tr>                      
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
