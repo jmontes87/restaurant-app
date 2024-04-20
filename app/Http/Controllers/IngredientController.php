@@ -14,7 +14,8 @@ class IngredientController extends Controller
      */
     public function index()
     {
-        return view('ingredient.index');
+        $ingredients = Ingredient::all();
+        return view('ingredient.index', compact('ingredients'));
     }
 
     /**
@@ -30,7 +31,9 @@ class IngredientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Ingredient::create($request->all());
+        Session::flash('message' , 'Ingredient create success!');
+        return Redirect::to('/ingredient');
     }
 
     /**
@@ -46,7 +49,8 @@ class IngredientController extends Controller
      */
     public function edit(string $id)
     {
-        return view('ingredient.create_update');
+        $ingredient = Ingredient::find($id);
+        return view('ingredient.create_update', compact('ingredient'));
     }
 
     /**
@@ -54,7 +58,12 @@ class IngredientController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+    	$ingredient = Ingredient::find($id);
+    	$ingredient->fill($request->all());
+    	$ingredient->save();
+
+    	Session::flash('message' , 'Ingredient update success!');
+    	return Redirect::to('/ingredient');
     }
 
     /**

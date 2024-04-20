@@ -28,15 +28,15 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter name">
+                    <input type="text" class="form-control" id="name" name="name" value="{{ isset($ingredient) ? $ingredient->name : '' }}" placeholder="Enter name">
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <input type="text" class="form-control" id="description" placeholder="Enter description">
+                    <input type="text" class="form-control" id="description" name="description" value="{{ isset($ingredient) ? $ingredient->description : '' }}" placeholder="Enter description">
                 </div>
                 <div class="form-group">
                     <label for="price_cost">Price cost</label>
-                    <input type="text" class="form-control" id="price_cost" placeholder="Enter price cost">
+                    <input type="text" class="form-control" id="price_cost" name="price_cost" value="{{ isset($ingredient) ? $ingredient->price_cost : '' }}" placeholder="Enter price cost">
                 </div>
             </div>
             <!-- /.card-body -->
