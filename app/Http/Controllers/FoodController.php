@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Food;
+use Redirect;
+use Session;
 
 class FoodController extends Controller
 {
@@ -11,7 +14,8 @@ class FoodController extends Controller
      */
     public function index()
     {
-        return view('food.index');
+        $foods = Food::all();
+        return view('food.index', compact('foods'));
     }
 
     /**
@@ -27,7 +31,9 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Food::create($request->all());
+        Session::flash('message' , 'Food create success!');
+        return Redirect::to('/food');
     }
 
     /**
@@ -43,7 +49,8 @@ class FoodController extends Controller
      */
     public function edit(string $id)
     {
-        return view('food.create_update');
+        $food = Food::find($id);
+        return view('food.create_update', compact('food'));
     }
 
     /**
@@ -51,7 +58,12 @@ class FoodController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+    	$food = Food::find($id);
+    	$food->fill($request->all());
+    	$food->save();
+
+    	Session::flash('message' , 'Food update success!');
+    	return Redirect::to('/food');
     }
 
     /**

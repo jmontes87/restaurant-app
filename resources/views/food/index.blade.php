@@ -2,7 +2,7 @@
  
 @section('wrapper-content')
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+  <div class="content-wrapper" style="height: auto !important;">
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
@@ -21,7 +21,36 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <div class="card">
 
+              <!-- /.card-header -->
+              <div class="card-body table-responsive p-0" >
+                <table class="table table-head-fixed text-nowrap">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Name</th>
+                      <th></th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    @foreach ($foods as $food)
+                      <tr>
+                        <td>{{ $food->id }}</td>
+                        <td>{{ $food->name }}</td>
+                        <td class="text-right"><a href="{{ route('food.edit', $food) }}" type="button" class="btn btn-primary">Edit</a></td>
+                      </tr>                      
+                    @endforeach
+                  </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+        </div>
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
