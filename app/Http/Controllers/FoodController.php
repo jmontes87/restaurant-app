@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Food;
+use App\Models\Ingredient;
 use Illuminate\Support\Facades\Validator;
 use Redirect;
 use Session;
@@ -24,7 +25,8 @@ class FoodController extends Controller
      */
     public function create()
     {
-        return view('food.create_update');
+        $ingredients = Ingredient::all();
+        return view('food.create_update', compact('ingredients'));
     }
 
     /**
@@ -41,7 +43,17 @@ class FoodController extends Controller
             return redirect('/food/create')->withErrors($validator)->withInput();
         }
 
-        Food::create($request->all());
+        $food = Food::create($request->except('ingredients'));
+
+        if ($request->has('ingredients')) {
+            $ingredients = $request->input('ingredients');
+            $syncData = [];
+            foreach ($ingredients as $ingredientId) {
+                $syncData[$ingredientId] = ['created_at' => now(), 'updated_at' => now()];
+            }
+            $food->ingredients()->sync($syncData);
+        }
+
         Session::flash('message' , 'Food create success!');
         return Redirect::to('/food');
     }
@@ -60,7 +72,8 @@ class FoodController extends Controller
     public function edit(string $id)
     {
         $food = Food::find($id);
-        return view('food.create_update', compact('food'));
+        $ingredients = Ingredient::all();
+        return view('food.create_update', compact('food', 'ingredients'));
     }
 
     /**

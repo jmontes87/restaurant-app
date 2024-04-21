@@ -42,6 +42,7 @@
                       <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
+                @include('ingredient.table', ['ingredients' => $ingredients, 'food' => $food, 'checkbox_view' => true])
               </div>
               <!-- /.card-body -->
               <div class="card-footer">

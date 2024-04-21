@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Food;
 
 class Ingredient extends Model
 {
@@ -19,4 +20,9 @@ class Ingredient extends Model
     protected $fillable = [
         'name', 'description', 'price_cost',
     ];
+
+    public function foods()
+    {
+        return $this->belongsToMany(Food::class, 'food_has_ingredient');
+    }
 }
