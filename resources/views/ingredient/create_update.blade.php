@@ -28,15 +28,24 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="name">Name</label>
-                    <input type="text" class="form-control" id="name" name="name" value="{{ isset($ingredient) ? $ingredient->name : '' }}" placeholder="Enter name">
+                    <input type="text" class="form-control" id="name" name="name" value="{{ old('name', isset($ingredient) ? $ingredient->name : '') }}" placeholder="Enter name">
+                    @error('name')
+                      <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <input type="text" class="form-control" id="description" name="description" value="{{ isset($ingredient) ? $ingredient->description : '' }}" placeholder="Enter description">
+                    <input type="text" class="form-control" id="description" name="description" value="{{ old('description', isset($ingredient) ? $ingredient->description : '') }}" placeholder="Enter description">
+                    @error('description')
+                      <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label for="price_cost">Price cost</label>
-                    <input type="text" class="form-control" id="price_cost" name="price_cost" value="{{ isset($ingredient) ? $ingredient->price_cost : '' }}" placeholder="Enter price cost">
+                    <input type="text" class="form-control" id="price_cost" name="price_cost" value="{{ old('price_cost', isset($ingredient) ? $ingredient->price_cost : '') }}" placeholder="Enter price cost">
+                    @error('price_cost')
+                      <div class="text-danger">{{ $message }}</div>
+                    @enderror
                 </div>
             </div>
             <!-- /.card-body -->

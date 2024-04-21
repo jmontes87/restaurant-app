@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PriceList;
+use Illuminate\Support\Facades\Validator;
 use Redirect;
 use Session;
 
@@ -31,6 +32,14 @@ class PriceListController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'percentage_margin' => 'required|numeric|min:0',
+        ]);
+        if ($validator->fails()) {
+            return redirect('/price_list/create')->withErrors($validator)->withInput();
+        }
         PriceList::create($request->all());
         Session::flash('message' , 'Price list create success!');
         return Redirect::to('/price_list');
@@ -58,6 +67,16 @@ class PriceListController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+            'percentage_margin' => 'required|numeric|min:0',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/price_list/'.$id.'/edit')->withErrors($validator)->withInput();
+        }
+
     	$price_list = PriceList::find($id);
     	$price_list->fill($request->all());
     	$price_list->save();

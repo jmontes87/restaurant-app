@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Food;
+use Illuminate\Support\Facades\Validator;
 use Redirect;
 use Session;
 
@@ -31,6 +32,15 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/food/create')->withErrors($validator)->withInput();
+        }
+
         Food::create($request->all());
         Session::flash('message' , 'Food create success!');
         return Redirect::to('/food');
@@ -58,6 +68,15 @@ class FoodController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string|max:255',
+        ]);
+
+        if ($validator->fails()) {
+            return redirect('/food/'.$id.'/edit')->withErrors($validator)->withInput();
+        }
+
     	$food = Food::find($id);
     	$food->fill($request->all());
     	$food->save();

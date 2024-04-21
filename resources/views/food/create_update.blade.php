@@ -30,12 +30,18 @@
               <div class="card-body">
                 <div class="form-group">
                   <label for="name">Name</label>
-                  <input type="text" class="form-control" name="name" id="name" value="{{ isset($food) ? $food->name : '' }}" placeholder="Enter name">
+                  <input type="text" class="form-control" id="name" name="name" value="{{ old('name', isset($food) ? $food->name : '') }}" placeholder="Enter name">
+                  @error('name')
+                    <div class="text-danger">{{ $message }}</div>
+                  @enderror
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
-                    <input type="text" class="form-control" name="description" id="description" value="{{ isset($food) ? $food->description : '' }}" placeholder="Enter description">
-                  </div>
+                    <input type="text" class="form-control" id="description" name="description" value="{{ old('description', isset($food) ? $food->description : '') }}" placeholder="Enter description">
+                    @error('description')
+                      <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
