@@ -25,7 +25,6 @@
               <i class="nav-icon far fa-calendar-alt"></i>
               <p>
                 Foods
-                <span class="badge badge-info right">2</span>
               </p>
             </a>
           </li>
