@@ -90,13 +90,27 @@ class FoodController extends Controller
             return redirect('/food/'.$id.'/edit')->withErrors($validator)->withInput();
         }
 
-    	$food = Food::find($id);
-    	$food->fill($request->all());
-    	$food->save();
+        $food = Food::find($id);
+        $food->fill($request->all());
+        $food->save();
 
-    	Session::flash('message' , 'Food update success!');
-    	return Redirect::to('/food');
+        // Sincroniza los ingredientes
+        if ($request->has('ingredients')) {
+            $ingredients = $request->input('ingredients');
+            $syncData = [];
+            foreach ($ingredients as $ingredientId) {
+                $syncData[$ingredientId] = ['created_at' => now(), 'updated_at' => now()];
+            }
+            $food->ingredients()->sync($syncData);
+        } else {
+            // Si no hay ingredientes seleccionados, eliminamos todos los ingredientes asociados
+            $food->ingredients()->detach();
+        }
+
+        Session::flash('message' , 'Food update success!');
+        return Redirect::to('/food');
     }
+
 
     /**
      * Remove the specified resource from storage.

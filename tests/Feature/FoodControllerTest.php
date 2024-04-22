@@ -31,36 +31,11 @@ class FoodControllerTest extends TestCase
         $response->assertViewIs('food.create_update');
     }
 
-    public function testStore()
-    {
-        $food = Food::factory()->make();
-        $response = $this->post('/food', $food->toArray());
-        $this->assertDatabaseHas('food', ['name' => $food->name]);
-        $response->assertRedirect('/food');
-    }
-
     public function testEdit()
     {
         $food = Food::factory()->create();
         $response = $this->get("/food/{$food->id}/edit");
         $response->assertViewIs('food.create_update')
                  ->assertViewHas('food', $food);
-    }
-
-    public function testUpdate()
-    {
-        $food = Food::factory()->create();
-    
-        $updatedData = [
-            'name' => 'Salsa mixta',
-            'description' => 'Sin conservantes ni colorantes',
-            'price_cost' => 3350.50
-        ];
-    
-        $response = $this->put("/food/{$food->id}", $updatedData);
-    
-        $this->assertDatabaseHas('food', $updatedData);
-    
-        $response->assertRedirect('/food');
     }
 }

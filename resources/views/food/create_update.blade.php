@@ -42,7 +42,14 @@
                       <div class="text-danger">{{ $message }}</div>
                     @enderror
                 </div>
-                @include('ingredient.table', ['ingredients' => $ingredients, 'food' => $food, 'checkbox_view' => true])
+                @include('ingredient.table', ['ingredients' => $ingredients, 'food' => isset($food) ? $food : null, 'checkbox_view' => true])
+                <div class="form-group">
+                    <label for="price_cost">Price cost</label>
+                    <input type="text" class="form-control" id="price_cost" name="price_cost" value="{{ old('price_cost', isset($food) ? $food->price_cost : '') }}" placeholder="Price cost" readonly>
+                    @error('price_cost')
+                      <div class="text-danger">{{ $message }}</div>
+                    @enderror
+                </div>
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
@@ -54,4 +61,23 @@
     </section>
     <!-- /.content -->
   </div>
+  <script type="text/javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+      const checkboxes = document.querySelectorAll('input[name="ingredients[]"]');
+
+      checkboxes.forEach(function(checkbox) {
+        checkbox.addEventListener('change', function() {
+          // Calculamos el precio total
+          let totalPrice = 0;
+          checkboxes.forEach(function(checkbox) {
+            if (checkbox.checked) {
+              totalPrice += parseFloat(checkbox.dataset.price);
+            }
+          });
+          // Mostramos el precio total en el campo de entrada price_cost
+          document.getElementById('price_cost').value = totalPrice.toFixed(2);
+        });
+      });
+    });
+  </script>
 @endsection

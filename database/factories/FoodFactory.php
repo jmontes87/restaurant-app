@@ -22,7 +22,7 @@ class FoodFactory extends Factory
         return [
             'name' => $this->faker->word,
             'description' => $this->faker->sentence,
-            'price_sale' => $this->faker->randomFloat(2, 0, 100), // Genera un número decimal aleatorio con 2 decimales entre 0 y 100
+            'price_cost' => $this->faker->randomFloat(2, 0, 100), // Genera un número decimal aleatorio con 2 decimales entre 0 y 100
         ];
     }
 }

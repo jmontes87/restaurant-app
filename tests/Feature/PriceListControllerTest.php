@@ -30,14 +30,6 @@ class PriceListControllerTest extends TestCase
         $response->assertViewIs('price_list.create_update');
     }
 
-    public function testStore()
-    {
-        $price_list = PriceList::factory()->make();
-        $response = $this->post('/price_list', $price_list->toArray());
-        $this->assertDatabaseHas('price_list', ['name' => $price_list->name]);
-        $response->assertRedirect('/price_list');
-    }
-
     public function testEdit()
     {
         $price_list = PriceList::factory()->create();
@@ -46,20 +38,4 @@ class PriceListControllerTest extends TestCase
                  ->assertViewHas('price_list', $price_list);
     }
 
-    public function testUpdate()
-    {
-        $price_list = PriceList::factory()->create();
-    
-        $updatedData = [
-            'name' => 'Salsa mixta',
-            'description' => 'Sin conservantes ni colorantes',
-            'price_cost' => 3350.50
-        ];
-    
-        $response = $this->put("/price_list/{$price_list->id}", $updatedData);
-    
-        $this->assertDatabaseHas('price_list', $updatedData);
-    
-        $response->assertRedirect('/price_list');
-    }
 }

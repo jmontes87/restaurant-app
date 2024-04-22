@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PriceList;
+use App\Models\Food;
 use Illuminate\Support\Facades\Validator;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Redirect;
 use Session;
 
@@ -91,5 +94,31 @@ class PriceListController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function exportList($id)
+    {
+        $price_list = PriceList::find($id);
+        $food = Food::all();
+        $data = array();
+        foreach ($food as $food) {
+            $price_sale = $food->price_cost * (1 + ($price_list->percentage_margin / 100));
+            $data[] = array(
+                'name' => $food->name,
+                'description' => $food->description,
+                'price_sale' => $price_sale
+            );
+        }
+
+        $pdf = new Dompdf();
+        $pdf->loadHtml(view('price_list.list', compact('data'))->render());
+
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $pdf->setOptions($options);
+
+        $pdf->render();
+
+        return $pdf->stream($price_list->name.'.pdf');
     }
 }

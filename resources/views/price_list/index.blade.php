@@ -40,7 +40,7 @@
                       <tr>
                         <td>{{ $price_list->id }}</td>
                         <td>{{ $price_list->name }}</td>
-                        <td class="text-right"><a href="{{ route('price_list.edit', $price_list) }}" type="button" class="btn btn-primary">Edit</a></td>
+                        <td class="text-right"><a href="{{ route('price_list.export', $price_list->id) }}" type="button" class="btn btn-primary">Export</a></td>
                       </tr>                      
                     @endforeach
                   </tbody>

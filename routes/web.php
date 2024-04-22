@@ -12,3 +12,5 @@ Route::get('/', function () {
 Route::resource('food', FoodController::class);
 Route::resource('ingredient', IngredientController::class);
 Route::resource('price_list', PriceListController::class);
+
+Route::get('/price_list/{id}/export', [PriceListController::class, 'exportList'])->name('price_list.export');
